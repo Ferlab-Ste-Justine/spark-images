@@ -1,6 +1,9 @@
 name: Push Images
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build-spark:
