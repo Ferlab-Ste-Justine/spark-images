@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
+    - name: Ensure we can build hive metastore
       run: docker build -t test:test .
       working-directory: hive_metastore
 
