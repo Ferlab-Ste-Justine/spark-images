@@ -1,0 +1,23 @@
+name: Build Images
+
+on: [push]
+
+jobs:
+  build-spark:
+    name: Build Spark Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Ensure we can build spark
+      run: ./build_spark.sh
+      env:
+        SPARK_VERSION: "3.0.1"
+  build-hive:
+    name: Build Hive Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Ensure we can build hive metastore
+      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t test:test .
+      working-directory: hive_metastore
+

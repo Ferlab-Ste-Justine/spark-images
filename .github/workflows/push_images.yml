@@ -1,0 +1,34 @@
+name: Push Images
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-spark:
+    name: Push Spark Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Build spark
+      run: ./build_spark.sh
+      env:
+        SPARK_VERSION: "3.0.1"
+    - name: Push spark
+      run: docker push chusj/spark:3.0.1
+  build-hive:
+    name: Push Hive Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Build Hive Metastore
+      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t chusj/hive-metastore:3.0.0 .
+      working-directory: hive_metastore
+    - name: Push Hive Metastore
+      run: docker push chusj/hive-metastore:3.0.0
+      working-directory: hive_metastore
