@@ -18,6 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Ensure we can build hive metastore
-      run: docker build -t test:test .
+      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t test:test .
       working-directory: hive_metastore
 
