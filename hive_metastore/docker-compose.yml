@@ -23,6 +23,10 @@ services:
   hive-metastore:
     build: .
     image: hive-metasore:latest
+    environment:
+      DB: metastore_db
+      DB_USER: admin
+      DB_PASSWORD: admin
     ports:
     - 9083:9083
     depends_on:
