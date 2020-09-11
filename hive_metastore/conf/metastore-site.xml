@@ -19,17 +19,17 @@
 
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:postgresql://postgres/metastore_db</value>
+        <value>jdbc:postgresql://postgres/${DB}</value>
     </property>
 
     <property>
         <name>javax.jdo.option.ConnectionUserName</name>
-        <value>admin</value>
+        <value>${DB_USER}</value>
     </property>
 
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
-        <value>admin</value>
+        <value>${DB_PASSWORD}</value>
     </property>
 
 </configuration>

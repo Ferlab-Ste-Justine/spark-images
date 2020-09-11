@@ -1,5 +1,7 @@
 FROM openjdk:8u242-jre
 
+RUN apt-get update && apt-get install -y gettext
+
 WORKDIR /opt
 
 ARG HADHOOP_VERSION=3.2.0
@@ -22,9 +24,10 @@ RUN groupadd -r hive --gid=1000 && \
     chown hive:hive -R ${HIVE_HOME} && \
     chown hive:hive /entrypoint.sh && chmod +x /entrypoint.sh
 
+COPY conf/metastore-site.xml ${HIVE_HOME}/conf
+RUN chown hive:hive ${HIVE_HOME}/conf/metastore-site.xml
+
 USER hive
 EXPOSE 9083
-
-COPY conf/metastore-site.xml ${HIVE_HOME}/conf
 
 ENTRYPOINT ["sh", "-c", "/entrypoint.sh"]
