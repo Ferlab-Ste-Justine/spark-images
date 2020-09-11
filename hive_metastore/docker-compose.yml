@@ -25,6 +25,7 @@ services:
     image: hive-metasore:latest
     environment:
       DB: metastore_db
+      DB_HOST: postgres
       DB_USER: admin
       DB_PASSWORD: admin
     ports:

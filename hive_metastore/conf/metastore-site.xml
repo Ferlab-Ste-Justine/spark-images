@@ -19,7 +19,7 @@
 
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:postgresql://postgres/${DB}</value>
+        <value>jdbc:postgresql://${DB_HOST}/${DB}</value>
     </property>
 
     <property>
