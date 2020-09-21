@@ -20,4 +20,4 @@ fi
     spark-${SPARK_VERSION}-bin-hadoop3.2/bin/docker-image-tool.sh -r chusj -t ${SPARK_IMAGE_TAG} build;
 )
 
-docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_VERSION=$SPARK_IMAGE_TAG" -t chusj/spark:$SPARK_IMAGE_TAG .;
+docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_IMAGE_TAG=$SPARK_IMAGE_TAG" -t chusj/spark:$SPARK_IMAGE_TAG .;
