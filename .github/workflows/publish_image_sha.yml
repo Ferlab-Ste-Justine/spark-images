@@ -1,0 +1,19 @@
+name: Publish Images Using Commit Hash
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-spark:
+    name: Publish Spark Image Using Commit Hash
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Ensure we can build spark image
+      run: SPARK_IMAGE_TAG=$GITHUB_SHA ./build_spark.sh
+    - name: Push spark image
+      run: docker push chusj/spark:$GITHUB_SHA
