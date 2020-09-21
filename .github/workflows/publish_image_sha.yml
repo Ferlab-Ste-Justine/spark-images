@@ -14,4 +14,4 @@ jobs:
     - name: Ensure we can build spark
       run: ./build_spark.sh
       env:
-        SPARK_VERSION: "${GITHUB_SHA}"
+        SPARK_IMAGE_TAG: "${GITHUB_SHA}"

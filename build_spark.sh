@@ -2,6 +2,7 @@
 set -e
 
 export SPARK_VERSION=${SPARK_VERSION:-3.0.1}
+export SPARK_IMAGE_TAG=${SPARK_IMAGE_TAG:-$SPARK_VERSION}
 
 if [ ! -d "./work/spark-${SPARK_VERSION}-bin-hadoop3.2" ]; then
   mkdir -p work
@@ -16,7 +17,7 @@ fi
 
 (
     cd work;
-    spark-${SPARK_VERSION}-bin-hadoop3.2/bin/docker-image-tool.sh -r chusj -t ${SPARK_VERSION} build;
+    spark-${SPARK_VERSION}-bin-hadoop3.2/bin/docker-image-tool.sh -r chusj -t ${SPARK_IMAGE_TAG} build;
 )
 
-docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_VERSION=$SPARK_VERSION" -t chusj/spark:$SPARK_VERSION .;
+docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_VERSION=$SPARK_IMAGE_TAG" -t chusj/spark:$SPARK_IMAGE_TAG .;
