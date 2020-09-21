@@ -1,0 +1,17 @@
+name: Publish Image Using Commit Hash
+
+on:
+  push:
+    #branches:
+    #  - master
+
+jobs:
+  build-spark:
+    name: Build Spark Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Ensure we can build spark
+      run: ./build_spark.sh
+      env:
+        SPARK_VERSION: "${GITHUB_SHA}"
