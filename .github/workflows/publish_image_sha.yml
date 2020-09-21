@@ -2,8 +2,8 @@ name: Publish Images Using Commit Hash
 
 on:
   push:
-    #branches:
-    #  - master
+    branches:
+      - master
 
 jobs:
   build-spark:
