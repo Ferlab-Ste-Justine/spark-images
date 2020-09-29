@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+set -e
 
-./setup-config.sh;
+/opt/setup-config.sh;
 
 if [ -z "$SPARK_JAR" ]; then
     echo "SPARK_JAR environment variable needs to be defined";
