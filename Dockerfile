@@ -16,4 +16,4 @@ RUN apt-get update && apt-get install -y gettext
 
 USER $SPARK_USER
 
-COPY client-entrypoint.sh /opt/client-entrypoint.sh
+COPY client-entrypoint.sh setup-config.sh /opt/
