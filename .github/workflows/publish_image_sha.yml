@@ -29,3 +29,15 @@ jobs:
       working-directory: hive_metastore
     - name: Push image
       run: docker push chusj/hive-metastore:$GITHUB_SHA
+  publish-zeppelin:
+    name: Publish Zeppelin Image Using Commit Hash
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Build image
+      run: docker build -t chusj/zeppelin:$GITHUB_SHA .
+      working-directory: zeppelin
+    - name: Push image
+      run: docker push chusj/zeppelin:$GITHUB_SHA
