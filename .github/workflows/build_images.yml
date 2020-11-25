@@ -20,4 +20,12 @@ jobs:
     - name: Ensure we can build hive metastore
       run: docker build --build-arg METASTORE_VERSION=3.0.0 -t test:test .
       working-directory: hive_metastore
+  build-zeppelin:
+    name: Build Zeppelin Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Ensure we can build zeppelin
+      run: docker build -t test:test .
+      working-directory: zeppelin
 
