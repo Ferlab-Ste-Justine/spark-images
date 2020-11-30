@@ -5,6 +5,6 @@ ADD https://storage.googleapis.com/kubernetes-release/release/v1.19.3/bin/linux/
 USER 0
 
 RUN chmod +x /usr/bin/kubectl
-RUN useradd --uid=1000 --home-dir=/zeppelin --user-group zeppelin
+RUN echo "zeppelin:x:1000:0:anonymous uid:/zeppelin:/bin/false" >> /etc/passwd
 
 USER 1000
