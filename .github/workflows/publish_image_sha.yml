@@ -12,32 +12,32 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
-      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build image
       run: SPARK_IMAGE_TAG=$GITHUB_SHA ./build_spark.sh
     - name: Push image
-      run: docker push chusj/spark:$GITHUB_SHA
+      run: docker push ferlabcrsj/spark:$GITHUB_SHA
   publish-hive:
     name: Publish Hive Image Using Commit Hash
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
-      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build image
-      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t chusj/hive-metastore:$GITHUB_SHA .
+      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t ferlabcrsj/hive-metastore:$GITHUB_SHA .
       working-directory: hive_metastore
     - name: Push image
-      run: docker push chusj/hive-metastore:$GITHUB_SHA
+      run: docker push ferlabcrsj/hive-metastore:$GITHUB_SHA
   publish-zeppelin:
     name: Publish Zeppelin Image Using Commit Hash
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
-      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build image
-      run: docker build -t chusj/zeppelin:$GITHUB_SHA .
+      run: docker build -t ferlabcrsj/zeppelin:$GITHUB_SHA .
       working-directory: zeppelin
     - name: Push image
-      run: docker push chusj/zeppelin:$GITHUB_SHA
+      run: docker push ferlabcrsj/zeppelin:$GITHUB_SHA
