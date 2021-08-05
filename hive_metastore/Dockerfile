@@ -24,8 +24,8 @@ RUN groupadd -r hive --gid=1000 && \
     chown hive:hive -R ${HIVE_HOME} && \
     chown hive:hive /entrypoint.sh && chmod +x /entrypoint.sh
 
-COPY conf/metastore-site.xml ${HIVE_HOME}/conf
-RUN chown hive:hive ${HIVE_HOME}/conf/metastore-site.xml
+COPY conf/metastore-site.xml.template ${HIVE_HOME}/conf
+RUN chown hive:hive ${HIVE_HOME}/conf/metastore-site.xml.template
 
 USER hive
 EXPOSE 9083
