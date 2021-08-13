@@ -25,7 +25,7 @@ if [ ! -d ${artifact} ]; then
   wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${aws_bundle_version}/aws-java-sdk-bundle-${aws_bundle_version}.jar -O ${artifact}/jars/aws-java-sdk-bundle-${aws_bundle_version}.jar;
   wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -O ${artifact}/jars/hadoop-aws-${HADOOP_VERSION}.jar;
 
-  # tar -cvzf ${artifact}.tgz ${artifact}
+  tar -cvzf ${artifact}.tgz ${artifact}
 fi
 
 
