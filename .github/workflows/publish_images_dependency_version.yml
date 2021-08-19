@@ -57,10 +57,10 @@ jobs:
     - name: Log into registry
       run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build Hive Metastore
-      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t ferlabcrsj/hive-metastore:3.0.0 .
+      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t ferlabcrsj/hive-metastore:1.0.0 .
       working-directory: hive_metastore
     - name: Publish Hive Metastore
-      run: docker push ferlabcrsj/hive-metastore:3.0.0
+      run: docker push ferlabcrsj/hive-metastore:1.0.0
       working-directory: hive_metastore
   publish-zeppelin:
     name: Publish Zeppelin Image
