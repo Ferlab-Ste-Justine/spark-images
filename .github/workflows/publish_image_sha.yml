@@ -31,13 +31,15 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build image
-      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t ferlabcrsj/hive-metastore:$GITHUB_SHA .
-      working-directory: hive_metastore
-    - name: Push image
-      run: docker push ferlabcrsj/hive-metastore:$GITHUB_SHA
+    - name: Push the image on the registry
+      uses: Ferlab-Ste-Justine/action-push-image@v2
+      with:
+        username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+        password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+        image: ferlabcrsj/hive-metastore
+        tag_format: "{sha}-{timestamp}"
+        location: hive_metastore
+        dockerfile: hive_metastore/Dockerfile
   publish-zeppelin:
     name: Publish Zeppelin Image Using Commit Hash
     runs-on: ubuntu-18.04
