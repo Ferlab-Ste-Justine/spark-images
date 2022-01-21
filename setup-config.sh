@@ -10,7 +10,7 @@ if [ -z "$SPARK_CLIENT_POD_NAME" ]; then
     exit 1;
 fi
 
-envsubst '${SPARK_CLIENT_POD_NAME}' < /opt/spark-configs/auto/auto.conf > /opt/spark-configs/auto/auto.conf
+envsubst '${SPARK_CLIENT_POD_NAME}' < /opt/spark-configs-template/auto/auto.conf > /opt/spark-configs/auto/auto.conf
 
 for CONFIG_FILE in /opt/spark-configs/*/*; do
     cat $CONFIG_FILE >> /opt/spark/conf/spark-defaults.conf;
