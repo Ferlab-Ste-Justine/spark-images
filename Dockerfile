@@ -9,9 +9,9 @@ RUN mkdir -p /opt/spark/conf && touch /opt/spark/conf/spark-defaults.conf && \
     touch /opt/spark/conf/spark-defaults.conf && \
     chown $SPARK_USER:$SPARK_USER /opt/spark/conf/spark-defaults.conf
 
-RUN mkdir -p /opt/spark-configs/auto
-COPY auto.conf /opt/spark-configs/auto/auto.conf
-RUN chown -R $SPARK_USER:$SPARK_USER /opt/spark-configs
+RUN mkdir -p /opt/spark-configs/auto /opt/spark-configs-template/auto
+COPY auto.conf /opt/spark-configs-template/auto/auto.conf
+RUN chown -R $SPARK_USER:$SPARK_USER /opt/spark-configs /opt/spark-configs-template
 
 RUN apt-get update && apt-get install -y gettext
 
