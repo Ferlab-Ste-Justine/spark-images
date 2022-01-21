@@ -14,4 +14,5 @@ envsubst '${SPARK_CLIENT_POD_NAME}' < /opt/spark-configs-template/auto/auto.conf
 
 for CONFIG_FILE in /opt/spark-configs/*/*; do
     cat $CONFIG_FILE >> /opt/spark/conf/spark-defaults.conf;
+    echo $'\n' >> /opt/spark/conf/spark-defaults.conf
 done
