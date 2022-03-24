@@ -1,9 +1,17 @@
 ARG SPARK_USER
 ARG SPARK_IMAGE_TAG
 ARG SPARK_IMAGE_REPO
+#Temporary argument to accomodate temporary minio internal CA
+ARG CA_CERT
 FROM $SPARK_IMAGE_REPO/spark:$SPARK_IMAGE_TAG
 
 USER 0
+
+#Temporary directives to accomodate temporary minio internal CA
+RUN echo $CA_CERT > /opt/ca.crt
+COPY install_ca.sh /opt/install_ca.sh
+
+RUN chmod +x /opt/install_ca.sh && /opt/install_ca.sh && rm /opt/install_ca.sh
 
 RUN mkdir -p /opt/spark/conf && touch /opt/spark/conf/spark-defaults.conf && \
     touch /opt/spark/conf/spark-defaults.conf && \

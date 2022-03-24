@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build-spark:
     name: Build Spark Image
+    environment: publication
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -19,6 +20,9 @@ jobs:
       run: sudo apt-get install python3-setuptools
     - name: Ensure we can build spark
       run: ./build_spark.sh
+      #Temporary env to accomodate temporary minio internal CA
+      env:
+        MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
   build-hive:
     name: Build Hive Image
     runs-on: ubuntu-18.04
