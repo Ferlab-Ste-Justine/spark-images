@@ -8,6 +8,7 @@ on:
 jobs:
   publish-spark:
     name: Publish Spark Image Using Commit Hash
+    environment: publication
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +25,9 @@ jobs:
       run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build image
       run: SPARK_IMAGE_TAG=$GITHUB_SHA ./build_spark.sh
+      #Temporary env to accomodate temporary minio internal CA
+      env:
+        MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
     - name: Push image
       run: docker push ferlabcrsj/spark:$GITHUB_SHA
   publish-hive:

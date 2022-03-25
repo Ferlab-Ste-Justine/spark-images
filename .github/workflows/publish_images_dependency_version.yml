@@ -8,6 +8,7 @@ on:
 jobs:
   publish-spark:
     name: Publish Spark Image
+    environment: publication
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +25,9 @@ jobs:
       run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build spark
       run: ./build_spark.sh
+      #Temporary env to accomodate temporary minio internal CA
+      env:
+        MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
     - name: Publish spark
       run: docker push ferlabcrsj/spark:3.1.2
   publish-hive:
