@@ -31,6 +31,6 @@ fi
 ./${artifact}/bin/docker-image-tool.sh -r ferlabcrsj -t ${SPARK_IMAGE_TAG} build;
 
 #Temporary minio internal CA
-printf $MINIO_CA_CERT > ca.crt
+printf "$MINIO_CA_CERT" > ca.crt
 
 docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_IMAGE_TAG=$SPARK_IMAGE_TAG" --build-arg "SPARK_IMAGE_REPO=ferlabcrsj" -t ferlabcrsj/spark:$SPARK_IMAGE_TAG .;
