@@ -6,6 +6,7 @@ WORKDIR /opt
 
 ARG HADHOOP_VERSION=3.2.0
 ARG METASTORE_VERSION=3.0.0
+ARG POSTGRESQL_VERSION=42.2.16
 
 ENV HADOOP_VERSION=$HADHOOP_VERSION
 ENV METASTORE_VERSION=$METASTORE_VERSION
@@ -15,7 +16,7 @@ ENV HIVE_HOME=/opt/apache-hive-metastore-${METASTORE_VERSION}-bin
 
 RUN curl -L https://mirror.dsrg.utoronto.ca/apache/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - && \
     curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
-    wget https://jdbc.postgresql.org/download/postgresql-42.2.16.jar -O ${HIVE_HOME}/lib/postgresql-jdbc.jar
+    wget https://repo1.maven.org/maven2/org/postgresql/postgresql/${POSTGRESQL_VERSION}/postgresql-${POSTGRESQL_VERSION}.jar -O ${HIVE_HOME}/lib/postgresql-jdbc.jar
 
 COPY scripts/entrypoint.sh /entrypoint.sh
 
