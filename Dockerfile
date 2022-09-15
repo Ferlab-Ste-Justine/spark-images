@@ -22,4 +22,4 @@ RUN apt-get update && apt-get install -y gettext
 
 USER $SPARK_USER
 
-COPY client-entrypoint.sh setup-config.sh /opt/
+COPY client-entrypoint.sh setup-config.sh start-history-server.sh /opt/
