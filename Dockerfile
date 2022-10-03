@@ -6,7 +6,7 @@ FROM $SPARK_IMAGE_REPO/spark:$SPARK_IMAGE_TAG
 USER 0
 
 #Temporary directives to accomodate temporary minio internal CA
-COPY ca.crt /opt/ca.crt
+COPY cqgc-prod-es-ca.crt /opt/ca.crt
 COPY install_ca.sh /opt/install_ca.sh
 RUN chmod +x /opt/install_ca.sh && /opt/install_ca.sh && rm /opt/install_ca.sh
 

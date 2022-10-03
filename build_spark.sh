@@ -8,14 +8,6 @@ export SPARK_IMAGE_TAG=${SPARK_IMAGE_TAG:-$SPARK_VERSION}
 aws_bundle_version="1.12.262"
 artifact="spark-${SPARK_VERSION}-bin-hadoop-${HADOOP_VERSION}"
 
-if [ -z "$CQGC_PROD_ES_CA_CERT" ]
-then
-    echo "CQGC_PROD_ES_CA_CERT is defined"
-else 
-    echo "CQGC_PROD_ES_CA_CERT NOT defined"
-    exit 1
-fi
-
 echo " ########## Building ${artifact} ..."
 
 if [ ! -d ${artifact} ]; then
@@ -39,6 +31,6 @@ fi
 ./${artifact}/bin/docker-image-tool.sh -r ferlabcrsj -t ${SPARK_IMAGE_TAG} build;
 
 #Temporary minio internal CA
-printf "$CQGC_PROD_ES_CA_CERT" | base64 -d > ca.crt
+#printf "$CQGC_PROD_ES_CA_CERT" | base64 -d > ca.crt
 
 docker build --build-arg "SPARK_USER=185" --build-arg "SPARK_IMAGE_TAG=$SPARK_IMAGE_TAG" --build-arg "SPARK_IMAGE_REPO=ferlabcrsj" -t ferlabcrsj/spark:$SPARK_IMAGE_TAG .;
