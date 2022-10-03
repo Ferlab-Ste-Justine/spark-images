@@ -9,7 +9,7 @@ if [ -s /opt/ca.crt ]; then
     update-ca-certificates
 
     openssl x509 -in /opt/ca.crt -inform pem -out /opt/ca.der -outform der
-    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqgc-minio -storepass changeit -file /opt/ca.der
+    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqgc-es -storepass changeit -file /opt/ca.der
 
     rm /opt/ca.der
 fi
