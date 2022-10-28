@@ -23,6 +23,7 @@ jobs:
       #Temporary env to accomodate temporary minio internal CA
       env:
         MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
+        MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
   build-hive:
     name: Build Hive Image
     runs-on: ubuntu-18.04

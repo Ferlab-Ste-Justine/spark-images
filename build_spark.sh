@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-export SPARK_VERSION=${SPARK_VERSION:-3.1.2}
+export SPARK_VERSION=${SPARK_VERSION:-3.3.1}
 export HADOOP_VERSION=${HADOOP_VERSION:-3.3.4}
 export SPARK_IMAGE_TAG=${SPARK_IMAGE_TAG:-$SPARK_VERSION}
 
@@ -18,6 +18,7 @@ if [ ! -d ${artifact} ]; then
   git checkout "tags/v${SPARK_VERSION}" -b "v${SPARK_VERSION}"
 
   echo " ########## Building spark ..."
+  set MAVEN_OPTS="-Xms256m -Xmx2048m -Xss10m"
   ./dev/make-distribution.sh --name hadoop-${HADOOP_VERSION} --pip -Psparkr -Phive -Phive-thriftserver -Pkubernetes -Dhadoop.version="${HADOOP_VERSION}" -DskipTests
   cd ..
   mv spark_clone/dist ${artifact}
