@@ -27,6 +27,7 @@ jobs:
       run: ./build_spark.sh
       #Temporary env to accomodate temporary minio internal CA
       env:
+        MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
         MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
     - name: Publish spark
       run: docker push ferlabcrsj/spark:3.3.1

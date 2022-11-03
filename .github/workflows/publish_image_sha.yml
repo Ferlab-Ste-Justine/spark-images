@@ -27,6 +27,7 @@ jobs:
       run: SPARK_IMAGE_TAG=$GITHUB_SHA ./build_spark.sh
       #Temporary env to accomodate temporary minio internal CA
       env:
+        MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
         MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
     - name: Push image
       run: docker push ferlabcrsj/spark:$GITHUB_SHA
