@@ -7,6 +7,7 @@ USER 0
 
 #Temporary directives to accomodate temporary minio internal CA
 COPY cqgc-prod-es-ca.crt /opt/ca.crt
+COPY cqdg-prod-es-ca.crt /opt/ca_cqdg.crt
 COPY install_ca.sh /opt/install_ca.sh
 RUN chmod +x /opt/install_ca.sh && /opt/install_ca.sh && rm /opt/install_ca.sh
 

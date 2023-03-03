@@ -14,4 +14,16 @@ if [ -s /opt/ca.crt ]; then
     rm /opt/ca.der
 fi
 
+if [ -s /opt/ca_cqdg.crt ]; then
+
+    cp /opt/ca_cqdg.crt /usr/local/share/ca-certificates/ca_cqdg.crt
+    update-ca-certificates
+
+    openssl x509 -in /opt/ca_cqdg.crt -inform pem -out /opt/ca_cqdg.der -outform der
+    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqdg-es -storepass changeit -file /opt/ca_cqdg.der
+
+    rm /opt/ca_cqdg.der
+fi
+
 rm /opt/ca.crt
+rm /opt/ca_cqdg.crt
