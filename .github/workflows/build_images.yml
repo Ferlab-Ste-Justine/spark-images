@@ -6,7 +6,7 @@ jobs:
   build-spark:
     name: Build Spark Image
     environment: publication
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
     - uses: r-lib/actions/setup-r@v1
@@ -26,7 +26,7 @@ jobs:
         MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
   build-hive:
     name: Build Hive Image
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
     - name: Ensure we can build hive metastore
@@ -34,7 +34,7 @@ jobs:
       working-directory: hive_metastore
   build-zeppelin:
     name: Build Zeppelin Image
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
     - name: Ensure we can build zeppelin
