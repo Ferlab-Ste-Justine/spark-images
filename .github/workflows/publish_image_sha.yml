@@ -9,14 +9,10 @@ jobs:
   publish-spark:
     name: Publish Spark Image Using Commit Hash
     environment: publication
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'adopt'
-        java-version: '17'
-    - uses: r-lib/actions/setup-r@v2
+    - uses: r-lib/actions/setup-r@v1
     - name: Install R rmarkdown
       run: Rscript -e "install.packages('rmarkdown', repos = 'http://cran.us.r-project.org')"
     - name: Install R knitr
