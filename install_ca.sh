@@ -31,7 +31,7 @@ if [ -s /opt/ca_cqdg_juno_qa.crt ]; then
     update-ca-certificates
 
     openssl x509 -in /opt/ca_cqdg_juno_qa.crt -inform pem -out /opt/ca_cqdg_juno_qa.der -outform der
-    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqdg-es -storepass changeit -file /opt/ca_cqdg_juno_qa.der
+    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqdg-juno-es -storepass changeit -file /opt/ca_cqdg_juno_qa.der
 
     rm /opt/ca_cqdg_juno_qa.der
 fi
