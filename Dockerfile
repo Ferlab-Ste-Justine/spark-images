@@ -1,7 +1,3 @@
-
-
-#Temporary directives to accomodate temporary minio internal CA
-
 ARG SPARK_USER
 ARG SPARK_IMAGE_TAG
 ARG SPARK_IMAGE_REPO
@@ -11,6 +7,7 @@ FROM $SPARK_IMAGE_REPO/spark:$SPARK_IMAGE_TAG
 
 USER 0
 
+#Temporary directives to accomodate temporary minio internal CA
 COPY cqgc-prod-es-ca.crt /opt/ca.crt \
      cqdg-prod-es-ca.crt /opt/ca_cqdg.crt \
      cqdg-qa-os-ca.crt /opt/ca_cqdg_juno_qa.crt \
