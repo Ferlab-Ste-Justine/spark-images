@@ -1,29 +1,23 @@
 #!/usr/bin/env bash
 set -e
 
-#Temporary script to accomodate temporary minio internal CA
+add_cert() {
+    local crt_file=$1
+    local alias_name=$2
 
-if [ -s /opt/ca.crt ]; then
+    if [ -s "$crt_file" ]; then
+        local der_file="${crt_file%.crt}.der"
+        cp "$crt_file" "/usr/local/share/ca-certificates/${crt_file##*/}"
+        update-ca-certificates
+        openssl x509 -in "$crt_file" -inform pem -out "$der_file" -outform der
+        keytool -noprompt -importcert -trustcacerts -cacerts -alias "$alias_name" -storepass changeit -file "$der_file"
+        rm "$der_file"
+        rm "$crt_file"
+    fi
+}
 
-    cp /opt/ca.crt /usr/local/share/ca-certificates/ca.crt
-    update-ca-certificates
+# Temporary script to accommodate temporary minio internal CA
 
-    openssl x509 -in /opt/ca.crt -inform pem -out /opt/ca.der -outform der
-    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqgc-es -storepass changeit -file /opt/ca.der
-
-    rm /opt/ca.der
-fi
-
-if [ -s /opt/ca_cqdg.crt ]; then
-
-    cp /opt/ca_cqdg.crt /usr/local/share/ca-certificates/ca_cqdg.crt
-    update-ca-certificates
-
-    openssl x509 -in /opt/ca_cqdg.crt -inform pem -out /opt/ca_cqdg.der -outform der
-    keytool -noprompt -importcert -trustcacerts -cacerts -alias cqdg-es -storepass changeit -file /opt/ca_cqdg.der
-
-    rm /opt/ca_cqdg.der
-fi
-
-rm /opt/ca.crt
-rm /opt/ca_cqdg.crt
+add_cert "/opt/ca.crt" "cqgc-es"
+add_cert "/opt/ca_cqdg.crt" "cqdg-es"
+add_cert "/opt/ca_cqdg_juno_qa.crt" "cqdg-juno-es"
