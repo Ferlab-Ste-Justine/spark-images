@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+CERTS_DIR="/etc/certs" 
+
 add_cert() {
     local crt_file=$1
     local alias_name=$2
@@ -12,12 +14,12 @@ add_cert() {
         openssl x509 -in "$crt_file" -inform pem -out "$der_file" -outform der
         keytool -noprompt -importcert -trustcacerts -cacerts -alias "$alias_name" -storepass changeit -file "$der_file"
         rm "$der_file"
-        rm "$crt_file"
     fi
 }
 
-# Temporary script to accommodate temporary minio internal CA
-
-add_cert "/opt/ca.crt" "cqgc-es"
-add_cert "/opt/ca_cqdg.crt" "cqdg-es"
-add_cert "/opt/ca_cqdg_juno_qa.crt" "cqdg-juno-es"
+for crt in "$CERTS_DIR"/*.crt; do
+    if [ -f "$crt" ]; then
+        alias_name=$(basename "$crt" .crt)
+        add_cert "$crt" "$alias_name"
+    fi
+done
