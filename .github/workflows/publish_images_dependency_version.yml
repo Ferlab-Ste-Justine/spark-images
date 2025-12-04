@@ -30,7 +30,7 @@ jobs:
         MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
         MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
     - name: Publish spark
-      run: docker push ferlabcrsj/spark:3.3.1
+      run: docker push ferlabcrsj/spark:3.5.5
   publish-hive:
     name: Publish Hive Image
     runs-on: ubuntu-22.04
