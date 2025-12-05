@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-export SPARK_VERSION=${SPARK_VERSION:-3.3.1}
+export SPARK_VERSION=${SPARK_VERSION:-3.5.5}
 export HADOOP_VERSION=${HADOOP_VERSION:-3.3.4}
 export SPARK_IMAGE_TAG=${SPARK_IMAGE_TAG:-$SPARK_VERSION}
 
-aws_bundle_version="1.12.262"
+aws_bundle_version="1.12.785"
 artifact="spark-${SPARK_VERSION}-bin-hadoop-${HADOOP_VERSION}"
 
 echo " ########## Building ${artifact} ..."
