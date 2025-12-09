@@ -3,22 +3,22 @@ name: Build Images
 on: [push]
 
 jobs:
-  build-spark-custom:
-    name: Build Spark Custom Image
+  build-spark-legacy:
+    name: Build Spark Legacy Image
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
-    - name: Ensure we can build spark
+    - name: Ensure we can build spark legacy image
       run: docker build -t test:test .
-      working-directory: spark_custom
-  build-spark-minimal:
-    name: Build Spark Minimal Image
+      working-directory: spark_legacy
+  build-spark:
+    name: Build Spark Image
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
-    - name: Ensure we can build spark minimal
+    - name: Ensure we can build spark image
       run: docker build -t test:test .
-      working-directory: spark_minimal
+      working-directory: spark
   build-hive:
     name: Build Hive Image
     runs-on: ubuntu-22.04

@@ -6,62 +6,59 @@ on:
     - master
 
 jobs:
-  publish-spark-custom:
-    name: Publish Spark Custom Image Using Dependency Version
+  publish-spark-legacy:
+    name: Publish Spark Legacy Image Using Dependency Version
     environment: publication
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: spark_custom
     steps:
     - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build image
-      run: docker build -t ferlabcrsj/spark-custom:3.5.5 .
-    - name: Publish image
-      run: docker push ferlabcrsj/spark-custom:3.5.5
+    - name: Push image to docker registry
+      uses: Ferlab-Ste-Justine/action-push-image@v2
+      with:
+        username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+        password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+        image: ferlabcrsj/spark-legacy
+        tag_format: 3.5.5
+        location: spark_legacy
 
-  publish-spark-minimal:
-    name: Publish Spark Minimal Image Using Dependency Version
+  publish-spark:
+    name: Publish Spark Image Using Dependency Version
     environment: publication
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: spark_minimal
     steps:
       - uses: actions/checkout@v2
-      - name: Log into registry
-        run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-      - name: Build image
-        run: docker build -t ferlabcrsj/spark-minimal:3.5.5 .
-      - name: Push image
-        run: docker push ferlabcrsj/spark-minimal:3.5.5
+      - name: Push image to docker registry
+        uses: Ferlab-Ste-Justine/action-push-image@v2
+        with:
+          username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+          password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+          image: ferlabcrsj/spark
+          tag_format: 3.5.5
+          location: spark
 
   publish-hive:
     name: Publish Hive Image
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build Hive Metastore
-      run: docker build --build-arg METASTORE_VERSION=3.0.0 -t ferlabcrsj/hive-metastore:1.0.0 .
-      working-directory: hive_metastore
-    - name: Publish Hive Metastore
-      run: docker push ferlabcrsj/hive-metastore:1.0.0
-      working-directory: hive_metastore
+      - uses: actions/checkout@v2
+      - name: Push image to docker registry
+        uses: Ferlab-Ste-Justine/action-push-image@v2
+        with:
+          username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+          password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+          image: ferlabcrsj/hive-metastore
+          tag_format: 1.0.0
+          location: hive_metastore
 
   publish-zeppelin:
     name: Publish Zeppelin Image
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build Zeppelin
-      run: docker build -t ferlabcrsj/zeppelin:0.9.0 .
-      working-directory: zeppelin
-    - name: Publish Zeppelin
-      run: docker push ferlabcrsj/zeppelin:0.9.0
-      working-directory: zeppelin
+      - uses: actions/checkout@v2
+      - name: Push image to docker registry
+        uses: Ferlab-Ste-Justine/action-push-image@v2
+        with:
+          username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+          password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+          image: ferlabcrsj/zeppelin
+          tag_format: 0.9.0
