@@ -20,6 +20,7 @@ jobs:
           image: ferlabcrsj/spark-legacy
           tag_format: "{sha}"
           location: spark_legacy
+          dockerfile: spark_legacy/Dockerfile
 
   publish-spark:
     name: Publish Spark Image Using Commit Hash
@@ -35,3 +36,4 @@ jobs:
           image: ferlabcrsj/spark
           tag_format: "{sha}"
           location: spark
+          dockerfile: spark/Dockerfile
