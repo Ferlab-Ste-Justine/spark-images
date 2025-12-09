@@ -20,6 +20,7 @@ jobs:
         image: ferlabcrsj/spark-legacy
         tag_format: 3.5.5
         location: spark_legacy
+        dockerfile: spark_legacy/Dockerfile
 
   publish-spark:
     name: Publish Spark Image Using Dependency Version
@@ -35,6 +36,7 @@ jobs:
           image: ferlabcrsj/spark
           tag_format: 3.5.5
           location: spark
+          dockerfile: spark/Dockerfile
 
   publish-hive:
     name: Publish Hive Image
@@ -49,6 +51,7 @@ jobs:
           image: ferlabcrsj/hive-metastore
           tag_format: 1.0.0
           location: hive_metastore
+          dockerfile: hive_metastore/Dockerfile
 
   publish-zeppelin:
     name: Publish Zeppelin Image
@@ -62,3 +65,5 @@ jobs:
           password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
           image: ferlabcrsj/zeppelin
           tag_format: 0.9.0
+          location: zeppelin
+          dockerfile: zeppelin/Dockerfile
