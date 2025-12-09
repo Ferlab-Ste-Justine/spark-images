@@ -10,30 +10,28 @@ jobs:
     name: Publish Spark Legacy Image Using Commit Hash
     environment: publication
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: spark_legacy
     steps:
-    - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build image
-      run: docker build -t ferlabcrsj/spark-legacy:$GITHUB_SHA .
-    - name: Push image
-      run: docker push ferlabcrsj/spark-legacy:$GITHUB_SHA
+      - uses: actions/checkout@v2
+      - name: Push image to docker registry
+        uses: Ferlab-Ste-Justine/action-push-image@v2
+        with:
+          username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+          password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+          image: ferlabcrsj/spark-legacy
+          tag_format: "{sha}"
+          location: spark_legacy
 
   publish-spark:
     name: Publish Spark Image Using Commit Hash
     environment: publication
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: spark
     steps:
-    - uses: actions/checkout@v2
-    - name: Log into registry
-      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
-    - name: Build image
-      run: docker build -t ferlabcrsj/spark:$GITHUB_SHA .
-    - name: Push image
-      run: docker push ferlabcrsj/spark:$GITHUB_SHA
+      - uses: actions/checkout@v2
+      - name: Push image to docker registry
+        uses: Ferlab-Ste-Justine/action-push-image@v2
+        with:
+          username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
+          password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
+          image: ferlabcrsj/spark
+          tag_format: "{sha}"
+          location: spark
