@@ -3,27 +3,22 @@ name: Build Images
 on: [push]
 
 jobs:
-  build-spark:
-    name: Build Spark Image
-    environment: publication
+  build-spark-custom:
+    name: Build Spark Custom Image
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
-    - uses: r-lib/actions/setup-r@v2
-    - name: Install R rmarkdown
-      run: Rscript -e "install.packages('rmarkdown', repos = 'http://cran.us.r-project.org')"
-    - name: Install R knitr
-      run: Rscript -e "install.packages('knitr', repos = 'http://cran.us.r-project.org')"
-    - name: Install R sparklyr
-      run: Rscript -e "install.packages('sparklyr', repos = 'http://cran.us.r-project.org')"
-    - name: Install python3-setuptools
-      run: sudo apt-get install python3-setuptools
     - name: Ensure we can build spark
-      run: ./build_spark.sh
-      #Temporary env to accomodate temporary minio internal CA
-      env:
-        MINIO_CA_CERT: ${{ secrets.MINIO_CA_CERT }}
-        MAVEN_OPTS: "-Xms256m -Xmx2048m -Xss10m"
+      run: docker build -t test:test .
+      working-directory: spark_custom
+  build-spark-minimal:
+    name: Build Spark Minimal Image
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Ensure we can build spark minimal
+      run: docker build -t test:test .
+      working-directory: spark_minimal
   build-hive:
     name: Build Hive Image
     runs-on: ubuntu-22.04

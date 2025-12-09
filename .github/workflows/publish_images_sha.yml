@@ -1,0 +1,39 @@
+name: Publish Images Using Commit Hash
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish-spark-custom:
+    name: Publish Spark Custom Image Using Commit Hash
+    environment: publication
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: spark_custom
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
+    - name: Build image
+      run: docker build -t ferlabcrsj/spark-custom:$GITHUB_SHA .
+    - name: Push image
+      run: docker push ferlabcrsj/spark-custom:$GITHUB_SHA
+
+  publish-spark-minimal:
+    name: Publish Spark Minimal Image Using Commit Hash
+    environment: publication
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: spark_minimal
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
+    - name: Build image
+      run: docker build -t ferlabcrsj/spark-minimal:$GITHUB_SHA .
+    - name: Push image
+      run: docker push ferlabcrsj/spark-minimal:$GITHUB_SHA
