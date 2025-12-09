@@ -6,37 +6,37 @@ on:
     - master
 
 jobs:
-  publish-spark-custom:
-    name: Publish Spark Custom Image Using Dependency Version
+  publish-spark-legacy:
+    name: Publish Spark Legacy Image Using Dependency Version
     environment: publication
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: spark_custom
+        working-directory: spark_legacy
     steps:
     - uses: actions/checkout@v2
     - name: Log into registry
       run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
     - name: Build image
-      run: docker build -t ferlabcrsj/spark-custom:3.5.5 .
+      run: docker build -t ferlabcrsj/spark-legacy:3.5.5 .
     - name: Publish image
-      run: docker push ferlabcrsj/spark-custom:3.5.5
+      run: docker push ferlabcrsj/spark-legacy:3.5.5
 
-  publish-spark-minimal:
-    name: Publish Spark Minimal Image Using Dependency Version
+  publish-spark:
+    name: Publish Spark Image Using Dependency Version
     environment: publication
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: spark_minimal
+        working-directory: spark
     steps:
       - uses: actions/checkout@v2
       - name: Log into registry
         run: echo "${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.FERLAB_DOCKER_HUB_USER }} --password-stdin
       - name: Build image
-        run: docker build -t ferlabcrsj/spark-minimal:3.5.5 .
+        run: docker build -t ferlabcrsj/spark:3.5.5 .
       - name: Push image
-        run: docker push ferlabcrsj/spark-minimal:3.5.5
+        run: docker push ferlabcrsj/spark:3.5.5
 
   publish-hive:
     name: Publish Hive Image
